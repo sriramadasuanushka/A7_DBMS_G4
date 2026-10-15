@@ -1,4 +1,4 @@
-# Integrated Wellness Management System (IWMS)
+# Integrated Wellness Management System 
 
 ##  Project Overview
 
