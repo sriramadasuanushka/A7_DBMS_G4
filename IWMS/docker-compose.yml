@@ -1,0 +1,67 @@
+﻿services:
+  wellness-api-gateway:
+    build: ./wellness-api-gateway
+    ports:
+      - "8090:8090"
+    environment:
+      SERVER_PORT: 8090
+      SPRING_CLOUD_GATEWAY_SERVER_WEBFLUX_GLOBALCORS_CORS_CONFIGURATIONS_[/**]_ALLOWEDORIGINS_0: http://localhost:5174
+    depends_on:
+      - wellness-auth-service
+      - wellness-member-service
+      - wellness-trainer-service
+      - wellness-service
+
+  wellness-auth-service:
+    build: ./wellness-auth-service
+    ports:
+      - "8082:8082"
+    environment:
+      SERVER_PORT: 8082
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/wellness_db
+      SPRING_DATA_REDIS_HOST: host.docker.internal
+      SPRING_DATA_REDIS_PORT: 6379
+
+  wellness-member-service:
+    build: ./wellness-member-service
+    ports:
+      - "8083:8083"
+    environment:
+      SERVER_PORT: 8083
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/wellness_db
+
+  wellness-trainer-service:
+    build: ./wellness-trainer-service
+    ports:
+      - "8085:8085"
+    environment:
+      SERVER_PORT: 8085
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/wellness_db
+
+  wellness-service:
+    build: ./wellness-service/wellness-service
+    ports:
+      - "8084:8084"
+    environment:
+      SERVER_PORT: 8084
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5432/wellness_db
+      SPRING_DATA_REDIS_HOST: host.docker.internal
+      SPRING_DATA_REDIS_PORT: 6379
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: host.docker.internal:9092
+
+  wellness-notification-service:
+    build: ./wellness-notification-service
+    ports:
+      - "8086:8086"
+    environment:
+      SERVER_PORT: 8086
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: host.docker.internal:9092
+
+  wellness-frontend:
+    build: ./wellness-frontend
+    ports:
+      - "5174:5174"
+    depends_on:
+      - wellness-api-gateway
+
+

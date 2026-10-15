@@ -1,0 +1,47 @@
+﻿# Secrets and environment files
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+**/application-local.properties
+**/application-local.yml
+**/application-local.yaml
+
+# Java and Maven
+**/target/
+*.class
+*.jar
+*.war
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Private database exports and backups
+*.sql
+*.dump
+*.bak
+*.backup
+
+# Python generated files
+__pycache__/
+.venv/
+venv/
+
+# Frontend dependencies and builds
+node_modules/
+dist/
+build/
+
+docker-compose.yml.backup
+
